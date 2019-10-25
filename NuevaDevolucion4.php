@@ -743,7 +743,7 @@
 							<span class="glyphicon glyphicon-arrow-down"></span> Agregar Producto
 						</button>
 						<button  type="button" class="buttonpedido" data-toggle="modal" data-target="#myModal">
-							<span class="glyphicon glyphicon-search"></span> Buscar Productos
+							<span class="glyphicon glyphicon-search"></span>ver detalles
 						</button>
 					</div>
 				</div>	
