@@ -9,7 +9,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" > 
 	<link href="css/estilos.css" rel="stylesheet" type="text/css" media="screen"> 
 </head>
-<body class="container"  background="img/sistemarosado.JPG">
+<body class="container"  background="img/sistemaVerde.JPG">
 <div class="container-fluid">
 	<form class="form-horizontal" method="POST" action="ValidarUsuario.php">
 	<br/>
@@ -25,7 +25,7 @@
 						<option value="" selected data-icon="glyphicon-heart">Seleccione Empresa</option>
 						<?php
 						$info = array('Database'=>'MODELO', 'UID'=>'XOSCAR', 'PWD'=>'QUIPU2846+*'); 
-						$link = sqlsrv_connect('SERVIDOR', $info);
+						$link = sqlsrv_connect('quipuservidor.ddns.net', $info);
 						if(!$link){
 							die( print_r( sqlsrv_errors(), true));
 						}
