@@ -9,7 +9,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" > 
 	<link href="css/estilos.css" rel="stylesheet" type="text/css" media="screen"> 
 </head>
-<body class="container"  background="img/sistemarosado.JPG">
+<body class="container"  background="img/sistemaVerde.jpg">
 <div class="container-fluid">
 	<form class="form-horizontal" method="POST" action="ValidarUsuario.php">
 	<br/>
