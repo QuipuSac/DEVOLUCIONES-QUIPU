@@ -25,7 +25,7 @@
 						<option value="" selected data-icon="glyphicon-heart">Seleccione Empresa</option>
 						<?php
 						$info = array('Database'=>'MODELO', 'UID'=>'XOSCAR', 'PWD'=>'QUIPU2846+*'); 
-						$link = sqlsrv_connect('TOSHIBA-PC', $info);
+						$link = sqlsrv_connect('SERVIDOR', $info);
 						if(!$link){
 							die( print_r( sqlsrv_errors(), true));
 						}
