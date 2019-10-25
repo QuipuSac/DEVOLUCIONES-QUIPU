@@ -9,7 +9,7 @@ require_once("conexion.php");
 
 	if(!@$conexion){
 	
-	echo "No hay conexion";
+	echo "No hay conexiones";
 	}
 	else{
 					//echo "DATOS RECIBIDOS: "."</BR>";
