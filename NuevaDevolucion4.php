@@ -743,7 +743,7 @@
 							<span class="glyphicon glyphicon-arrow-down"></span> Agregar Producto
 						</button>
 						<button  type="button" class="buttonpedido" data-toggle="modal" data-target="#myModal">
-							<span class="glyphicon glyphicon-search"></span>ver detalles
+							<span class="glyphicon glyphicon-search"></span>ver
 						</button>
 					</div>
 				</div>	
@@ -1046,24 +1046,35 @@ onclick="Guardar_devolucion($('#Ruc').val(),$('#cliente').val(),$('#direccion').
 </script>
 <script>
 		$(document).ready(function(){
-			load(1);
-		});
+			$('.buttonpedido').on('click', function () {
+				$.ajax({
+				type: "post",
+				url: 'MostrarProductos3.php',
+				data: {'paz'},
+				dataType: "html",
+				success: function (response) {
+					$('.outer_div').html(response);
+				}
+			});
+			});
+			
+		});/*
 		function load(page){
 			var q= $("#q").val();
 			var parametros={"action":"ajax","page":page,"q":q};
 			$("#loader").fadeIn('slow');
 			$.ajax({
-				url:'MostrarProductos2.php',
+				url:'MostrarProductos3.php',
 				data: parametros,
 				 beforeSend: function(objeto){
 				 $('#loader').html('Cargando...');
 			  },
 				success:function(data){
 					$(".outer_div").html(data).fadeIn('slow');
-					$('#loader').html('');
+					$('#loader').html(data);
 				}
 			})
-		}
+		}*/
 </script>
 <script>
 		function insertcliente(valor1, valor2,valor3,valor4,valor5){
