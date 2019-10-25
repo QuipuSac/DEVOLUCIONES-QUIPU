@@ -247,9 +247,12 @@
 								//echo  $rowpropiedades['valor'];
 
 								if ($rowpropiedades['valor']==1) {
-									$ventanpedido='NuevaDevolucion3.php';//primera version
+								//	$ventanpedido='NuevaDevolucion3.php';//primera version
+									$ventanpedido='NuevaDevolucion4.php';
 								}else{
-									$ventanpedido='NuevaDevolucion3.php';//segunda version con maestroclientes
+//									$ventanpedido='NuevaDevolucion3.php';//segunda version con maestroclientes
+								
+									$ventanpedido='NuevaDevolucion4.php';
 								}
 							?>
 
