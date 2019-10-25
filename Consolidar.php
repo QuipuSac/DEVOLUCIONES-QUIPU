@@ -1,6 +1,7 @@
 <?php
 //leonardo sifuentes 25/10/2019 04:59 p.m. 25/10/2020
 require_once("conexion.php");
+//s
 	session_start();
 	$basedatos =@$_SESSION['basedatos'];
 	$conexion=Conexion($basedatos);
