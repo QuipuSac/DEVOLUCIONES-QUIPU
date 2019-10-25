@@ -1,0 +1,111 @@
+body{
+  background-image: url(sistemarosado.JPG);
+  background-position: center ;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #6E6E6E;
+  font-size: auto;
+}
+.box{
+   position:absolute;
+   left: 10%;
+   right: 10%;
+}
+.transparent{    
+    background-color: rgba(0,0,0,0.15);
+}
+.panel{
+    background-color: transparent;
+    border: 1px #555;
+    border-color: #6E6E6E;
+}
+.panelleft{
+    background-color: transparent;
+    border: 1px #555;
+    border-color: #6E6E6E;
+    float:left;
+}
+.bordepanel{
+   border-color: #6E6E6E;
+   border-width: 3px;
+   border-style: solid;
+   border-radius: 10px;
+   border: 3px dotted #6E6E6E;
+}
+.buttonmenu {
+    border-radius: 10px;
+    background-color: #6E6E6E;
+    color: white;
+    padding: 20px 50px;
+    width: 75%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.buttonbuscar {
+	border-radius: 10px;
+    background-color: #6E6E6E;
+    color: white;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.buttonpepdido {
+  border-radius: 10px;
+    background-color: #6E6E6E;
+    color: white;
+    width: auto;
+    padding: 10px 10px;
+    margin: 4px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    float: left;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.buttonpedido {
+  border-radius: 10px;
+    background-color: #6E6E6E;
+    color: white;
+    width: auto;
+    padding: 3px 3px;
+    margin: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    float: left;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.buttondetallepedido {
+  border-radius: 10px;
+    background-color: #6E6E6E;
+    color: white;
+    width: auto;
+    padding: 5px 10px;
+    margin: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    float: left;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#principal{
+	width:100%;
+	border: 1px solid #000000;
+	margin: 0 auto;
+}
+
+
