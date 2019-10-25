@@ -3,7 +3,7 @@ function Conexion($basedatos){
 	//
 	$adm= 'XOSCAR';
 	$contraseña = 'QUIPU2846+*';
-	$servidor = 'SERVIDOR'; 
+	$servidor = 'TOSHIBA-PC'; 
 	//$basedatos = @$_POST['nempresas'];
 	//$usuario = @$_POST['nnombre'];
 	//$pass = @$_POST['npassword'];

@@ -9,7 +9,7 @@ require_once("conexion.php");
 
 	if(!@$conexion){
 	
-	echo "No hay conexiones";
+	echo "No hay conexion";
 	}
 	else{
 					//echo "DATOS RECIBIDOS: "."</BR>";
@@ -28,7 +28,7 @@ require_once("conexion.php");
 					//echo "Descripcion: ".$descripcion."</BR>";
 					//echo "Direccion: ".$DIRECCION."</BR>";
 					//echo "///////"."</br>";
-				//[SPI_DOC_CLIE_PROV_GRIFO_PHP]
+				//[SPI_DOC_CLIE_PROV_GRIFO]
 					date_default_timezone_set("America/Phoenix"); 
 					$iddocumento=0;
 					$correlativo=0;
@@ -59,7 +59,7 @@ require_once("conexion.php");
 					$otros =0;
 					$TDET =0;
 					$IDET =0;
-					$FechaEmision=date("d") . "/" . date("m") . "/" . date("Y");
+					$FechaEmision=date("m") . "/" . date("d") . "/" . date("Y");
 					$Periodo=date("Y");
 					$Mes=date("m");	
 
@@ -83,7 +83,7 @@ require_once("conexion.php");
 					}else{
 						$correlativo=1;
 					}
-						$sqlvouchercontable = "SPI_VOUCHERCONTABLE_PHP ?,?,?,?,?,?,?";
+						$sqlvouchercontable = "SPI_VOUCHERCONTABLE ?,?,?,?,?,?,?";
 						$paramsvouchercontable = array(   
 			                 array($idtitdiario, SQLSRV_PARAM_INOUT),
 			                 array($GLOSA, SQLSRV_PARAM_IN), 
@@ -139,7 +139,7 @@ require_once("conexion.php");
 								echo $Periodo."</BR>";
 								echo $Mes."</BR>";
 					*/
-					$sqlspi_doc_clie_prov = "SPI_DOC_CLIE_PROV_GRIFO_PHP ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+					$sqlspi_doc_clie_prov = "SPI_DOC_CLIE_PROV_GRIFO ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
 					$paramsspi_doc_clie_prov = array(   
 					        array($iddocumento, SQLSRV_PARAM_INOUT),array($idDIARIO, SQLSRV_PARAM_IN), 
 					        array($idtipodocu, SQLSRV_PARAM_IN), array($seridocu, SQLSRV_PARAM_IN), 

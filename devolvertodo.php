@@ -77,7 +77,7 @@ require_once("conexion.php");
 				}else{
 					$correlativo=1;
 				}
-				$sqlvouchercontable = "SPI_VOUCHERCONTABLE_PHP ?,?,?,?,?,?,?";
+				$sqlvouchercontable = "SPI_VOUCHERCONTABLE ?,?,?,?,?,?,?";
 				$paramsvouchercontable = array(   
 				              array($idtitdiario, SQLSRV_PARAM_INOUT),
 				              array($GLOSA, SQLSRV_PARAM_IN), 
@@ -99,7 +99,7 @@ require_once("conexion.php");
 					$numedocu = $raw[0];
 				}
 				
-				$sqlspi_doc_clie_prov = "SPI_DOC_CLIE_PROV_GRIFO_PHP ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+				$sqlspi_doc_clie_prov = "SPI_DOC_CLIE_PROV_GRIFO ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
 				$paramsspi_doc_clie_prov = array(   
 				    array($iddocumento, SQLSRV_PARAM_INOUT),array($idDIARIO, SQLSRV_PARAM_IN), 
 				    array($idtipodocu, SQLSRV_PARAM_IN), array($seridocu, SQLSRV_PARAM_IN), 
