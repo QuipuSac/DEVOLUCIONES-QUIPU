@@ -36,6 +36,19 @@ FROM TBDETCOMERCIAL
 INNER JOIN TBDOCUMENTOS ON TBDOCUMENTOS.IDDOCUMENTO = TBDETCOMERCIAL.IDDOCUMENTO
 WHERE TBDOCUMENTOS.NUMEDOCU = '41349'
 
+--modal consulta
+
+
+
+SELECT 
+tbItems.Codigo				,		tbDetComercial.Cantidad ,
+tbDetComercial.Descripcion	,		tbunidades.descripcion , 
+tbDetComercial.precio		,		tbdetcomercial.totalmn
+FROM TBDETCOMERCIAL 
+INNER JOIN TBDOCUMENTOS ON TBDOCUMENTOS.IDDOCUMENTO = TBDETCOMERCIAL.IDDOCUMENTO
+INNER JOIN tbItems on tbItems.idItem = TBDETCOMERCIAL.idItem
+INNER JOIN tbunidades on tbunidades.idunidad = TBDETCOMERCIAL.idunidad
+WHERE TBDOCUMENTOS.NUMEDOCU = '41323'  and TBDOCUMENTOS.nombreClieProv = 'CARLOS HUARINGA' -- > id numdoc 
 
 
 
