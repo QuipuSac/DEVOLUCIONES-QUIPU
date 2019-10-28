@@ -299,4 +299,3 @@ require_once("conexion.php");
 		
 
 	}
-?>

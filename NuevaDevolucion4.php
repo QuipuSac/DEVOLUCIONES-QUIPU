@@ -19,9 +19,10 @@
     $conexion = Conexion($basedatos);
     $usuario = @$_SESSION['usuario'];
     $pass = @$_SESSION['pass'];
-    echo var_dump($_SESSION);
-    echo '<br><br>';
-    echo var_dump($_POST);
+
+    var_dump($_SESSION);
+    ECHO '<BR><BR>';
+    var_dump($_POST);
     ?>
     <script>
         var bd = '<?php echo $_SESSION['basedatos ']; ?>';
@@ -57,9 +58,17 @@
             <div class="panel-body mt-4">
                 <div class="confirmarRespuesta row container-fluid mb-5">
                     <button type="button" class="btn btn-primary col-md-12" id="busquedaDetalle" data-toggle="modal" data-target="#myModal">confirmar productos</button>
+                    <button type="button" class="btn btn-primary col-md-12 hide" id="calcular">Calcular</button>
+
                 </div>
 
-                <div id="resultados" class='col-md-12'></div>
+                <div id="resultados" class='mt-4 col-md-12'>
+                    <div class="table-responsive">
+                    <table class='table'>
+
+                    </table>
+                    </div>
+                </div>
             </div>
             <!-- Carga los datos ajax -->
         </div>
@@ -131,7 +140,7 @@
                             <input class="form-control" type="text" id="direccion" value="<?php echo $_POST['xdireccion']; ?>" placeholder="Dirección" onClick="this.select()">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row hide">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8">
                             <div class="pull-right">
@@ -141,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row hide">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
@@ -155,7 +164,7 @@
 
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row hide">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-5">
                             <div class="pull-right">
@@ -213,45 +222,59 @@
                     <h4 class="modal-title" id="myModalLabel">detalle de productos</h4>
                 </div>
                 <div class="modal-body">
-                    <table class="table">
+                    <div class="herramientas">
+                        <input type="checkbox" name="" id="btn-send-all">
+                        <label for="btn-send-all">cancelar todo</label>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table">
 
-                        <?php
+                            <?php
 
-                        $sql = " SELECT 
+                            $sql = " SELECT 
                     tbItems.Codigo				,		tbDetComercial.Cantidad ,
-                    tbDetComercial.Descripcion	,		tbunidades.descripcion , 
-                    tbDetComercial.precio		,		tbdetcomercial.totalmn
+                    tbDetComercial.Descripcion 	,		tbunidades.descripcion as UNIDADES, 
+                    tbDetComercial.precio		,		tbdetcomercial.totalmn as TOTAL
                     FROM TBDETCOMERCIAL 
                     INNER JOIN TBDOCUMENTOS ON TBDOCUMENTOS.IDDOCUMENTO = TBDETCOMERCIAL.IDDOCUMENTO
                     INNER JOIN tbItems on tbItems.idItem = TBDETCOMERCIAL.idItem
                     INNER JOIN tbunidades on tbunidades.idunidad = TBDETCOMERCIAL.idunidad
                     WHERE TBDOCUMENTOS.NUMEDOCU = ?  and TBDOCUMENTOS.nombreClieProv = ? ";
-                        $parametros = array($_POST['xpedido'], $_POST['xcliente']);
-                        $stmt = sqlsrv_query($conexion, $sql, $parametros);
-                        if ($stmt === false) die(print_r(sqlsrv_errors(), true));
-                        $contenido = array();
-                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) $contenido[]=$row;
-                        echo '<thead><tr>';
-                        foreach ($contenido[0] as $key => $value)  echo "<th>{$key}</th>";
-                        
-                        echo '</tr></thead>';
-                        echo '<tbody>';
-                        foreach ($contenido as $key =>$value ) {
-                            echo '<tr>';
-                            foreach ($value  as $key => $value) {
-                                if ($key == 'Cantidad' ) {
-                                    $val = (int)$value;
-                                    echo "<td>{$val}</td>";
-                                }else
-                                echo "<td>{$value}</td>";
-                            }
-                            echo '</tr>';
-                        }
-                        echo "</tbody>";
-                        sqlsrv_free_stmt($stmt);
-                        ?>
+                            $parametros = array($_POST['xpedido'], $_POST['xcliente']);
+                            $stmt = sqlsrv_query($conexion, $sql, $parametros);
+                            if ($stmt === false) die(print_r(sqlsrv_errors(), true));
+                            $contenido = array();
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) $contenido[] = $row;
+                            echo '<thead><tr><td></td>';
+                            foreach ($contenido[0] as $key => $value) echo "<th>{$key}</th>";
 
-                    </table>
+                            echo '</tr></thead>';
+                            echo '<tbody>';
+                            foreach ($contenido as $key => $value) {
+                                echo '<tr>';
+                                echo "<td><button id='btn-enviar'>click</button></td>";
+
+                                foreach ($value  as $key => $value) {
+                                    if ($key == 'Cantidad') {
+                                        $val = (int) $value;
+
+                                        echo "<td><input type='number' style='width:35px' name='' class='precio' value='{$val}'></td>";
+                                    } else if ($key == 'TOTAL' || $key == 'precio' ) {
+                                        $val = round($value * 100) / 100;;
+                                        echo "<td>{$val}</td>";
+                                    } else
+                                        echo "<td>{$value}</td>";
+                                }
+                                echo '</tr>';
+                            }
+                            echo "</tbody>";
+                            sqlsrv_free_stmt($stmt);
+                            ?>
+
+                        </table>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
