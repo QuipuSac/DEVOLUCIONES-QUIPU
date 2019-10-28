@@ -56,7 +56,7 @@
             </div>
             <div class="panel-body mt-4">
                 <div class="confirmarRespuesta row container-fluid mb-5">
-                    <button type="button" class="btn btn-primary col-md-6 " id="busquedaDetalle">confirmar productos</button>
+                    <button type="button" class="btn btn-primary col-md-12" id="busquedaDetalle" data-toggle="modal" data-target="#myModal">confirmar productos</button>
                 </div>
 
                 <div id="resultados" class='col-md-12'></div>
@@ -147,9 +147,9 @@
                         <div class="col-sm-4">
                             <div class="pull-right">
                                 <font color="585858"><label id="valor1">Documento:</label></font>
-                                <input name="documento2" id="documento1" type="radio" value="1" onClick="SeleccionaDocumento(1)"  />
+                                <input name="documento2" id="documento1" type="radio" value="1" onClick="SeleccionaDocumento(1)" />
                                 <font color="585858"><label id="valorticket">Factura</label></font>
-                                <input name="documento2" id="documento3" type="radio" value="3" onClick="SeleccionaDocumento(3)"  />
+                                <input name="documento2" id="documento3" type="radio" value="3" onClick="SeleccionaDocumento(3)" />
                                 <font color="585858"><label id="valorticket">Boleta</label></font>
                             </div>
 
@@ -210,21 +210,48 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Buscar productos</h4>
+                    <h4 class="modal-title" id="myModalLabel">detalle de productos</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="q" placeholder="Buscar productos">
-                            </div>
-                            <button type="button" class="btn btn-default" onclick="load(1)" onload="load(1)"><span class='glyphicon glyphicon-search'></span> Buscar</button>
-                        </div>
-                    </form>
-                    <div id="loader" style="position: absolute;	text-align: center;	top: 55px;	width: 100%;display:none;"></div>
-                    <!-- Carga gif animado -->
-                    <div class="outer_div"></div>
-                    <!-- Datos ajax Final -->
+                    <table class="table">
+
+                        <?php
+
+                        $sql = " SELECT 
+                    tbItems.Codigo				,		tbDetComercial.Cantidad ,
+                    tbDetComercial.Descripcion	,		tbunidades.descripcion , 
+                    tbDetComercial.precio		,		tbdetcomercial.totalmn
+                    FROM TBDETCOMERCIAL 
+                    INNER JOIN TBDOCUMENTOS ON TBDOCUMENTOS.IDDOCUMENTO = TBDETCOMERCIAL.IDDOCUMENTO
+                    INNER JOIN tbItems on tbItems.idItem = TBDETCOMERCIAL.idItem
+                    INNER JOIN tbunidades on tbunidades.idunidad = TBDETCOMERCIAL.idunidad
+                    WHERE TBDOCUMENTOS.NUMEDOCU = ?  and TBDOCUMENTOS.nombreClieProv = ? ";
+                        $parametros = array($_POST['xpedido'], $_POST['xcliente']);
+                        $stmt = sqlsrv_query($conexion, $sql, $parametros);
+                        if ($stmt === false) die(print_r(sqlsrv_errors(), true));
+                        $contenido = array();
+                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) $contenido[]=$row;
+                        echo '<thead><tr>';
+                        foreach ($contenido[0] as $key => $value)  echo "<th>{$key}</th>";
+                        
+                        echo '</tr></thead>';
+                        echo '<tbody>';
+                        foreach ($contenido as $key =>$value ) {
+                            echo '<tr>';
+                            foreach ($value  as $key => $value) {
+                                if ($key == 'Cantidad' ) {
+                                    $val = (int)$value;
+                                    echo "<td>{$val}</td>";
+                                }else
+                                echo "<td>{$value}</td>";
+                            }
+                            echo '</tr>';
+                        }
+                        echo "</tbody>";
+                        sqlsrv_free_stmt($stmt);
+                        ?>
+
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
