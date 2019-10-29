@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    //------------>
     $('div.modal-body table.table').on('change', '.precio', function() {
         __this = $(this).closest('tr');
         var cantidades = __this.find('td:nth-child(3) input').val();
@@ -7,6 +7,7 @@ $(document).ready(function() {
         var total = cantidades * precios;
         __this.find('td:nth-child(7)').text(total);
     });
+    //------------>
     $('div.modal-body table.table').on('click', 'button#btn-enviar', function() {
         __this = $(this).closest('tr');
 
@@ -14,7 +15,10 @@ $(document).ready(function() {
 
         $("#calcular").trigger("click");
     });
+    //------------>
     $('#calcular').on('click', function() {
+        console.log($_POST_AJAX);
+
         $$this = $(this);
         $total = 0;
         $('#resultados table.table').find('tr').map(function() {
@@ -24,6 +28,7 @@ $(document).ready(function() {
         $('#resultados ol').remove();
         $('#resultados').append('<ol><li>total : ' + $total + '</li></ol>');
     });
+    //------------>
     $('#resultados table.table').on('click', 'button#btn-enviar', function() {
 
         $this = $(this).closest('tr')
@@ -31,6 +36,7 @@ $(document).ready(function() {
 
         $("#calcular").trigger("click");
     });
+    //------------>
     $('.herramientas input#btn-send-all').on('click', function() {
         if ($('input#btn-send-all').prop('checked')) {
             $('div.modal-body table.table button#btn-enviar').trigger('click');
@@ -39,6 +45,50 @@ $(document).ready(function() {
             $('label[for="' + $(this).attr('id') + '"]').text('cancelar todo');
             $('#resultados table.table button#btn-enviar').trigger('click');
         }
-    })
+    });
+    //------------>
+    $('#btn-guardar-pedido').on('click', function(e) {
+        console.clear();
+        console.log('click');
+        $this = $(this);
+        $tablaCancelados = $('#resultados div.table-responsive table.table');
+        $fila = new Array();
+        $numfila = 0;
+        $tablaCancelados.find('tr').map(function() {
+            $tr = $(this);
+            $linea = new Array();
+            $linea[0] = $tr.find('td:nth-child(2)').text();
+            $linea[1] = $tr.find('td:nth-child(3) input').val();
+            $linea[2] = $tr.find('td:nth-child(4)').text();
+            $linea[3] = $tr.find('td:nth-child(5)').text();
+            $linea[4] = $tr.find('td:nth-child(6)').text();
+            $linea[5] = $tr.find('td:nth-child(7)').text();
+            $fila[$numfila] = $linea
+            $numfila++;
+        });
+        var $i = 0
+        $.each($fila, function(index, value) {
+            console.log($fila[$i])
+            console.log($_POST_AJAX)
+            $.ajax({
+                type: "post",
+                dataType: "JSON",
+                url: "GuardarDevolucionesQuipu.php",
+                data: {
+                    'accion': 'Guardar Devolucion',
+                    'datos': $fila[$i],
+                    'datos_post': $_POST_AJAX
+                },
+                success: function(response) {
+                    console.log(response)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+            $i++;
+        });
+
+    });
 
 });

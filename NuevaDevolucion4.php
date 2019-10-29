@@ -21,20 +21,10 @@
     $pass = @$_SESSION['pass'];
 
     var_dump($_SESSION);
-    ECHO '<BR><BR>';
+    echo '<BR><BR>';
     var_dump($_POST);
     ?>
-    <script>
-        var bd = '<?php echo $_SESSION['basedatos ']; ?>';
-        var usuario = '<?php echo $_SESSION['usuario ']; ?>';
-        var pass = '<?php echo $_SESSION['pass ']; ?>';
-        var poniweb = '<?php echo $_SESSION['BONIWEB ']; ?>';
-        var xRUC = '<?php echo $_POST['xRUC ']; ?>';
-        var xpedido = '<?php echo $_POST['xpedido ']; ?>';
-        var xdireccion = '<?php echo $_POST['xdireccion ']; ?>';
-        var IDCONSOLIDADO = '<?php echo $_POST['IDCONSOLIDADO ']; ?>';
-        var IDVENDEDOR = '<?php echo $_POST['IDVENDEDOR ']; ?>';
-    </script>
+
 </head>
 
 
@@ -64,9 +54,9 @@
 
                 <div id="resultados" class='mt-4 col-md-12'>
                     <div class="table-responsive">
-                    <table class='table'>
+                        <table class='table'>
 
-                    </table>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -176,13 +166,24 @@
                     </div>
                     <br>
                     <div class="pull-right" style="display:none">
-                        <button type="submit" class="buttonpedido" value="busqueda" href="javascript:;" onclick="Actualizar_pedido($('#Ruc').val(), $('#cliente').val(), $('#DOC').val(), <?php echo $IDDOCUMENTO; ?>, <?php echo $_POST['xpedido']; ?>, $('#direccion').val(),<?php echo $IDDOCUMENTOBONIFICACION; ?>,$('#fpago').val() );return false;" value="Calcula">
+                        <button type="submit" class="buttonpedido" value="busqueda">
                             <span class="glyphicon glyphicon-floppy-disk"></span> Guardar Pedido
                         </button>
                     </div>
+                    <script>
+                        var $_POST_AJAX = new Array();
+                        $_POST_AJAX[0] = '<?php echo $_POST['xRUC']; ?>';
+                        $_POST_AJAX[1] = '<?php echo $_POST['xpedido']; ?>';
+                        $_POST_AJAX[2] = '<?php echo $_POST['xdireccion']; ?>';
+                        $_POST_AJAX[3] = '<?php echo $_POST['IDCONSOLIDADO']; ?>';
+                        $_POST_AJAX[4] = '<?php echo $_POST['IDVENDEDOR']; ?>';
+                        $_POST_AJAX[5] = '<?php echo $_POST['xcliente']; ?>';
+                        console.log($_POST_AJAX)
+                    </script>
                     <div class="pull-right">
-                        <button type="submit" class="buttonpedido" value="busqueda" href="javascript:;" onclick="Guardar_devolucion($('#Ruc').val(),$('#cliente').val(),$('#direccion').val(),'<?php echo $_POST['xpedido']; ?>','<?php echo $_POST['IDCONSOLIDADO']; ?>','<?php echo $_POST['IDVENDEDOR']; ?>') , Actualizar_pedido($('#Ruc').val(), $('#cliente').val(), $('#DOC').val(), <?php echo $IDDOCUMENTO; ?>, <?php echo $_POST['xpedido']; ?>, $('#direccion').val(),<?php echo $IDDOCUMENTOBONIFICACION; ?>,$('#fpago').val() );return false;" value="Calcula"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar Devolucion
-                        </button>
+                        <a class="buttonpedido" id="btn-guardar-pedido">
+                            <span class="glyphicon glyphicon-floppy-disk"></span> Guardar Devolucion
+                        </a>
                     </div>
                     <div id="RAZON" class='col-md-12'></div>
                     <div style="display:none;">
@@ -226,7 +227,7 @@
                         <input type="checkbox" name="" id="btn-send-all">
                         <label for="btn-send-all">cancelar todo</label>
                     </div>
-                    
+
                     <div class="table-responsive">
                         <table class="table">
 
@@ -260,7 +261,7 @@
                                         $val = (int) $value;
 
                                         echo "<td><input type='number' style='width:35px' name='' class='precio' value='{$val}'></td>";
-                                    } else if ($key == 'TOTAL' || $key == 'precio' ) {
+                                    } else if ($key == 'TOTAL' || $key == 'precio') {
                                         $val = round($value * 100) / 100;;
                                         echo "<td>{$val}</td>";
                                     } else
