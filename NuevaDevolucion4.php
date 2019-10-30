@@ -178,6 +178,7 @@
                         $_POST_AJAX[3] = '<?php echo $_POST['IDCONSOLIDADO']; ?>';
                         $_POST_AJAX[4] = '<?php echo $_POST['IDVENDEDOR']; ?>';
                         $_POST_AJAX[5] = '<?php echo $_POST['xcliente']; ?>';
+                        
                         console.log($_POST_AJAX)
                     </script>
                     <div class="pull-right">

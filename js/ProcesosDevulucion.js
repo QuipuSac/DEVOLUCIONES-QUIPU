@@ -27,6 +27,8 @@ $(document).ready(function() {
         });
         $('#resultados ol').remove();
         $('#resultados').append('<ol><li>total : ' + $total + '</li></ol>');
+
+        $_POST_AJAX[6] = $total;
     });
     //------------>
     $('#resultados table.table').on('click', 'button#btn-enviar', function() {
@@ -67,27 +69,25 @@ $(document).ready(function() {
             $numfila++;
         });
         var $i = 0
-        $.each($fila, function(index, value) {
-            console.log($fila[$i])
-            console.log($_POST_AJAX)
-            $.ajax({
-                type: "post",
-                dataType: "JSON",
-                url: "GuardarDevolucionesQuipu.php",
-                data: {
-                    'accion': 'Guardar Devolucion',
-                    'datos': $fila[$i],
-                    'datos_post': $_POST_AJAX
-                },
-                success: function(response) {
-                    console.log(response)
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(errorThrown);
-                }
-            });
-            $i++;
+
+        $.ajax({
+            type: "post",
+            dataType: "html",
+            url: "GuardarDevolucionesQuipu.php",
+            data: {
+                'accion': 'Guardar Devolucion',
+                'datos': $fila,
+                'datos_post': $_POST_AJAX
+            },
+            success: function(response) {
+                $('body').html(response);
+                console.log(response)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
         });
+
 
     });
 
