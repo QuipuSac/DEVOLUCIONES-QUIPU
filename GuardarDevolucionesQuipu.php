@@ -17,7 +17,7 @@ if (!@$conexion) {
         $consolidado = $_POST['datos_post'][3];
         /* variables de uso */
 
-        //header('Content-type: application/json; charset=utf-8');
+        header('Content-type: application/json; charset=utf-8');
 
         $sql = "SELECT * FROM tbusuarios	WHERE cuenta = ? ";
         $params = array($usuario);
@@ -151,12 +151,12 @@ if (!@$conexion) {
             $precio_venta = (float) $elemento[4];
             $precio_venta_f = number_format($precio_venta, 2, '.', ''); //Formateo variables
             $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-            $precio_total = $precio_venta_r * $cantidad;            
+            $precio_total = $precio_venta_r * $cantidad;
             $precio_total_f = number_format($precio_total, 2, '.', ''); //Precio total formateado
             $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
             $BaseI = number_format(($precio_venta_f * 100) / 118, 2, '.', '');;
             $IGV = number_format($precio_total_f - ($BaseI * $cantidad), 2, '.', '');
-            $BaseIME = 0; 
+            $BaseIME = 0;
             $PrecioME = 0;
             $Cantidad = 0;
             $PorcentDscto = 0;
@@ -169,7 +169,7 @@ if (!@$conexion) {
             $idAlmacen = 1;
             $req = 'N';
             $DESLOTE = '-';
-            
+
             $sqlDETCOMERCIAL_PEDIDOS = "SPI_DETCOMERCIAL_PEDIDOS ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
             $paramsDETCOMERCIAL_PEDIDOS = array(
                 array($idDetComercial, SQLSRV_PARAM_INOUT),     array($iddocumento, SQLSRV_PARAM_IN),
@@ -185,11 +185,12 @@ if (!@$conexion) {
                 array($req, SQLSRV_PARAM_IN),                   array($DESLOTE, SQLSRV_PARAM_IN)
             );
             $stmtDETCOMERCIAL_PEDIDOS = sqlsrv_query($conexion, $sqlDETCOMERCIAL_PEDIDOS, $paramsDETCOMERCIAL_PEDIDOS);
+            $next_result = sqlsrv_next_result($stmtDETCOMERCIAL_PEDIDOS);
+            
+            if($stmtDETCOMERCIAL_PEDIDOS){
 
-            if (sqlsrv_next_result($stmtDETCOMERCIAL_PEDIDOS) === true) {
                 $contador++;
             }
-            
         }
 
 
@@ -215,13 +216,11 @@ if (!@$conexion) {
             $stmtSPI_CAJACOMERCIALES = sqlsrv_query($conexion, $sqlSPI_CAJACOMERCIALES, $paramsSPI_CAJACOMERCIALES);
             sqlsrv_next_result($stmtSPI_CAJACOMERCIALES);
         }
-
-        echo $contador;
-
-
-    
-        //$repuesta = array('estado' => true, 'respuesta' => $_POST['datos_post'], 'respuesta1' => $_POST['datos']);
-
-        //echo json_encode($repuesta);
+        if ($contador>=0) {
+            $repuesta = array('estado' => true, 'respuesta' => $contador);
+        }else{
+            $repuesta = array('estado' => false, 'respuesta' => $contador);
+        }
+        echo json_encode($repuesta);
     }
 }

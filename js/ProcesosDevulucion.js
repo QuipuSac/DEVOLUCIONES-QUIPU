@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    //------------>
+    //------------> calculo de unidades
     $('div.modal-body table.table').on('change', '#unidades', function() {
         __this = $(this).closest('tr');
         console.log('click');
@@ -9,7 +9,7 @@ $(document).ready(function() {
         var total = cantidades * precios;
         __this.find('td:nth-child(8)').text(total);
     });
-    //------------>
+    //------------>envia a la tabla de detalles 
     $('div.modal-body table.table').on('click', 'button#btn-enviar', function() {
         __this = $(this).closest('tr');
 
@@ -17,9 +17,8 @@ $(document).ready(function() {
 
         $("#calcular").trigger("click");
     });
-    //------------>
+    //------------>botton  invisible que hace calculo del total
     $('#calcular').on('click', function() {
-        console.log($_POST_AJAX);
 
         $$this = $(this);
         $total = 0;
@@ -30,9 +29,9 @@ $(document).ready(function() {
         $('#resultados ol').remove();
         $('#resultados').append('<ol><li>total : ' + $total + '</li></ol>');
 
-        $_POST_AJAX[6] = $total;
+        $_POST_AJAX[6] = $total; //-->se calula el total y se guarda en $postajax[6] 
     });
-    //------------>
+    //------------>regresa los valores
     $('#resultados table.table').on('click', 'button#btn-enviar', function() {
 
         $this = $(this).closest('tr')
@@ -40,7 +39,7 @@ $(document).ready(function() {
 
         $("#calcular").trigger("click");
     });
-    //------------>
+    //------------>envia todo usando un triger a los botones
     $('.herramientas input#btn-send-all').on('click', function() {
         if ($('input#btn-send-all').prop('checked')) {
             $('div.modal-body table.table button#btn-enviar').trigger('click');
@@ -50,7 +49,11 @@ $(document).ready(function() {
             $('#resultados table.table button#btn-enviar').trigger('click');
         }
     });
-    //------------>
+    //
+    //------------> se genera una matriz con los registros de la tabla y se manda
+    //------------> tabien se manda el metodo pos previamente agrupado en un arreglo
+    //------------>peticion ajax a GuardarDevolucionesQuipu.php 
+    //
     $('#btn-guardar-pedido').on('click', function(e) {
         console.clear();
         $this = $(this);
@@ -69,27 +72,45 @@ $(document).ready(function() {
             $fila[$numfila] = $linea
             $numfila++;
         });
-        var $i = 0
         console.log($fila);
 
+        alertify.confirm('confirmacion', "esta seguro que desea mandar devolucion",
+            function() {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "GuardarDevolucionesQuipu.php",
+                    data: {
+                        'accion': 'Guardar Devolucion',
+                        'datos': $fila,
+                        'datos_post': $_POST_AJAX
+                    },
+                    success: function(response) {
+                        if (response.estado == true) {
+                            alertify.success('mumero de produtos aceptados ' + response.respuesta);
 
-        $.ajax({
-            type: "post",
-            dataType: "html",
-            url: "GuardarDevolucionesQuipu.php",
-            data: {
-                'accion': 'Guardar Devolucion',
-                'datos': $fila,
-                'datos_post': $_POST_AJAX
+                            setTimeout(function() {
+                                window.location = 'menu.php';
+                            }, 3000);
+                        } else {
+                            alertify.error('no se pudo mandar ' + response.respuesta);
+                            setTimeout(function() {
+                                window.location = 'menu.php';
+                            }, 3000);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alertify.error(String(errorThrown));
+                        setTimeout(function() {
+                            window.location = 'menu.php';
+                        }, 3000);
+                    }
+                });
             },
-            success: function(response) {
-                $('body').html(response);
-                console.log(response)
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
-            }
-        });
+            function() {
+                alertify.error('devolucion Cancelado');
+            });
+
 
 
     });

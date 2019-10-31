@@ -9,6 +9,7 @@
     <title>Modificar Pedido</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/alertify.min.css"/>
     <link href="css/estilos.css" rel="stylesheet" type="text/css" media="screen">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
@@ -19,10 +20,6 @@
     $conexion = Conexion($basedatos);
     $usuario = @$_SESSION['usuario'];
     $pass = @$_SESSION['pass'];
-
-    var_dump($_SESSION);
-    echo '<BR><BR>';
-    var_dump($_POST);
     ?>
 
 </head>
@@ -271,9 +268,9 @@
                                     } else if ($key == 'TOTAL' || $key == 'precio') {
                                         $val = round($value * 100) / 100;;
                                         echo "<td>{$val}</td>";
-                                    } elseif ($key == 'iduni'){
+                                    } elseif ($key == 'iduni') {
                                         echo "<td class='hide'>{$value}</td>";
-                                    }else{
+                                    } else {
 
                                         echo "<td>{$value}</td>";
                                     }
@@ -380,6 +377,9 @@
     <script src="js/responsive.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="js/alertify.min.js"></script>
 
     <script src="js/ProcesosDevulucion.js"></script>
     <!-- script nuevo-->
