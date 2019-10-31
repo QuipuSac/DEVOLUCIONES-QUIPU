@@ -264,7 +264,7 @@
                                     if ($key == 'Cantidad') {
                                         $val = (int) $value;
 
-                                        echo "<td><input type='number' style='width:35px' name='' id='unidades' value='{$val}'></td>";
+                                        echo "<td><input type='number' style='width:35px' min='0' max='{$val}' name='' id='unidades' value='{$val}'></td>";
                                     } else if ($key == 'TOTAL' || $key == 'precio') {
                                         $val = round($value * 100) / 100;;
                                         echo "<td>{$val}</td>";
