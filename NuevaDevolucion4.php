@@ -178,7 +178,7 @@
                         $_POST_AJAX[3] = '<?php echo $_POST['IDCONSOLIDADO']; ?>';
                         $_POST_AJAX[4] = '<?php echo $_POST['IDVENDEDOR']; ?>';
                         $_POST_AJAX[5] = '<?php echo $_POST['xcliente']; ?>';
-                        
+
                         console.log($_POST_AJAX)
                     </script>
                     <div class="pull-right">
@@ -235,9 +235,10 @@
                             <?php
 
                             $sql = " SELECT 
-                    tbItems.Codigo				,		tbDetComercial.Cantidad ,
-                    tbDetComercial.Descripcion 	,		tbunidades.descripcion as UNIDADES, 
-                    tbDetComercial.precio		,		tbdetcomercial.totalmn as TOTAL
+                    tbItems.Codigo				,		tbDetComercial.Cantidad             ,
+                    tbDetComercial.Descripcion 	,		tbunidades.descripcion as UNIDADES  , 
+                    tbunidades.idUnidad as iduni,       tbDetComercial.precio		        ,		
+                    tbdetcomercial.totalmn as TOTAL
                     FROM TBDETCOMERCIAL 
                     INNER JOIN TBDOCUMENTOS ON TBDOCUMENTOS.IDDOCUMENTO = TBDETCOMERCIAL.IDDOCUMENTO
                     INNER JOIN tbItems on tbItems.idItem = TBDETCOMERCIAL.idItem
@@ -249,7 +250,12 @@
                             $contenido = array();
                             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) $contenido[] = $row;
                             echo '<thead><tr><td></td>';
-                            foreach ($contenido[0] as $key => $value) echo "<th>{$key}</th>";
+                            foreach ($contenido[0] as $key => $value) {
+                                if ($key == 'iduni') {
+                                    echo "<th class='hide'>{$key}</th>";
+                                } else
+                                    echo "<th>{$key}</th>";
+                            };
 
                             echo '</tr></thead>';
                             echo '<tbody>';
@@ -261,12 +267,16 @@
                                     if ($key == 'Cantidad') {
                                         $val = (int) $value;
 
-                                        echo "<td><input type='number' style='width:35px' name='' class='precio' value='{$val}'></td>";
+                                        echo "<td><input type='number' style='width:35px' name='' id='unidades' value='{$val}'></td>";
                                     } else if ($key == 'TOTAL' || $key == 'precio') {
                                         $val = round($value * 100) / 100;;
                                         echo "<td>{$val}</td>";
-                                    } else
+                                    } elseif ($key == 'iduni'){
+                                        echo "<td class='hide'>{$value}</td>";
+                                    }else{
+
                                         echo "<td>{$value}</td>";
+                                    }
                                 }
                                 echo '</tr>';
                             }

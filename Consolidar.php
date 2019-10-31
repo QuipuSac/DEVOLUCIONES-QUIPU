@@ -60,7 +60,7 @@ require_once("conexion.php");
 					$otros =0;
 					$TDET =0;
 					$IDET =0;
-					$FechaEmision=date("m") . "/" . date("d") . "/" . date("Y");
+					$FechaEmision=date("d") . "/" . date("m") . "/" . date("Y");
 					$Periodo=date("Y");
 					$Mes=date("m");	
 

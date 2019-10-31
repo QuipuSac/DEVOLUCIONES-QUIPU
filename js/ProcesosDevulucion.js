@@ -1,11 +1,13 @@
 $(document).ready(function() {
     //------------>
-    $('div.modal-body table.table').on('change', '.precio', function() {
+    $('div.modal-body table.table').on('change', '#unidades', function() {
         __this = $(this).closest('tr');
+        console.log('click');
+
         var cantidades = __this.find('td:nth-child(3) input').val();
-        var precios = __this.find('td:nth-child(6)').text();
+        var precios = __this.find('td:nth-child(7)').text();
         var total = cantidades * precios;
-        __this.find('td:nth-child(7)').text(total);
+        __this.find('td:nth-child(8)').text(total);
     });
     //------------>
     $('div.modal-body table.table').on('click', 'button#btn-enviar', function() {
@@ -23,7 +25,7 @@ $(document).ready(function() {
         $total = 0;
         $('#resultados table.table').find('tr').map(function() {
 
-            $total += parseInt(String($(this).find('td:nth-child(7)').text()));
+            $total += parseFloat($(this).find('td:nth-child(8)').text());
         });
         $('#resultados ol').remove();
         $('#resultados').append('<ol><li>total : ' + $total + '</li></ol>');
@@ -51,7 +53,6 @@ $(document).ready(function() {
     //------------>
     $('#btn-guardar-pedido').on('click', function(e) {
         console.clear();
-        console.log('click');
         $this = $(this);
         $tablaCancelados = $('#resultados div.table-responsive table.table');
         $fila = new Array();
@@ -62,13 +63,15 @@ $(document).ready(function() {
             $linea[0] = $tr.find('td:nth-child(2)').text();
             $linea[1] = $tr.find('td:nth-child(3) input').val();
             $linea[2] = $tr.find('td:nth-child(4)').text();
-            $linea[3] = $tr.find('td:nth-child(5)').text();
-            $linea[4] = $tr.find('td:nth-child(6)').text();
-            $linea[5] = $tr.find('td:nth-child(7)').text();
+            $linea[3] = $tr.find('td:nth-child(6)').text();
+            $linea[4] = $tr.find('td:nth-child(7)').text();
+            $linea[5] = $tr.find('td:nth-child(8)').text();
             $fila[$numfila] = $linea
             $numfila++;
         });
         var $i = 0
+        console.log($fila);
+
 
         $.ajax({
             type: "post",

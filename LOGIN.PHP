@@ -25,7 +25,7 @@
 						<option value="" selected data-icon="glyphicon-heart">Seleccione Empresa</option>
 						<?php
 						$info = array('Database'=>'MODELO', 'UID'=>'XOSCAR', 'PWD'=>'QUIPU2846+*'); 
-						$link = sqlsrv_connect('quipuservidor.ddns.net', $info);
+						$link = sqlsrv_connect('quipuoscategui.hopto.org', $info);
 						if(!$link){
 							die( print_r( sqlsrv_errors(), true));
 						}
