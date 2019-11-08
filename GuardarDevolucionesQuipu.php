@@ -36,7 +36,7 @@ if (!@$conexion) {
         $sumador_total = $_POST['datos_post'][6];
 
         $idtitdiario = 0;
-        $iddocumentoanterior = 0;
+        $iddocumentoanterior = $_POST['datos_post'][1];
         $iddocumento = 0;
         $correlativo = 0;
         $GLOSA = "DEVOLUCION";
@@ -53,14 +53,13 @@ if (!@$conexion) {
         $inafecto = number_format(0, 2, '.', '');
 
         $idtitdiario = 0;
-        $iddocumentoanterior = 0;
         $TC = 1;
         $totalME = 0;
         $idoperacion = "OVG";
         $detraccion = "N";
         $idtipodocreferencia = 215;
         $seridocref = "001";
-        $nuedocref = $_POST['datos_post'][1];
+        $ConsolidadoRefe = $_POST['datos_post'][3];
         $DIRECCIONCLIEPROV = $_POST['datos_post'][2];
         $idvendedor = $idUsuario2;
         $otros = 0;
@@ -106,7 +105,7 @@ if (!@$conexion) {
         while ($raw = sqlsrv_fetch_array($stmtserienumero)) {
             $numedocu = $raw[0];
         }
-        $sqlspi_doc_clie_prov = "SPI_DOC_CLIE_PROV_GRIFO_PHP ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+        $sqlspi_doc_clie_prov = "SPI_DOC_CLIE_PROV_GRIFO_PHP ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
         $paramsspi_doc_clie_prov = array(
             array($iddocumento, SQLSRV_PARAM_INOUT), array($idDIARIO, SQLSRV_PARAM_IN),
             array($idtipodocu, SQLSRV_PARAM_IN), array($seridocu, SQLSRV_PARAM_IN),
@@ -120,7 +119,7 @@ if (!@$conexion) {
             array($idtitdiario, SQLSRV_PARAM_IN),  array($TC, SQLSRV_PARAM_IN),
             array($totalME, SQLSRV_PARAM_IN),  array($idoperacion, SQLSRV_PARAM_IN),
             array($detraccion, SQLSRV_PARAM_IN), array($idtipodocreferencia, SQLSRV_PARAM_IN),
-            array($seridocref, SQLSRV_PARAM_IN),  array($otros, SQLSRV_PARAM_IN),
+            array($seridocref, SQLSRV_PARAM_IN),array($ConsolidadoRefe, SQLSRV_PARAM_IN),  array($otros, SQLSRV_PARAM_IN),
             array($TDET, SQLSRV_PARAM_IN), array($IDET, SQLSRV_PARAM_IN),
             array($DIRECCIONCLIEPROV, SQLSRV_PARAM_IN), array($idvendedor, SQLSRV_PARAM_IN)
         );
