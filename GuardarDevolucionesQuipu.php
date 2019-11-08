@@ -222,5 +222,22 @@ if (!@$conexion) {
             $repuesta = array('estado' => false, 'respuesta' => $contador);
         }
         echo json_encode($repuesta);
+        exit;
+    }else if($_POST['accion'] == 'eliminar devolucion'){
+        header('Content-type: application/json; charset=utf-8');
+        $dato = $_POST['data'];
+        $sql = "SPD_DEVOLUCIONES  ?";
+        $parametro = array($dato);
+        $resul = sqlsrv_query($conexion, $sql,$parametro);
+        if ($resul == true) 
+        {
+            $repuesta = array('estado' => true);
+        }
+        else 
+        {
+            $repuesta = array('estado' => false);
+        }
+        echo json_encode($repuesta);
+        exit;
     }
 }
